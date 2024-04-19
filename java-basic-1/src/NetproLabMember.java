@@ -36,8 +36,7 @@ static int[][] infoStudents;
             //研究室配属された人が全員男性である確率 
             float allMen = 1;
             for (int j = 0; j<limitIwai; j++){
-                float men = (float)(student - j - femaleNum)/student-j;
-                System.out.println(allMen);
+                float men = (float)(student - j - femaleNum)/(student-j);
                 allMen = allMen * men;
             }
             allMenMen = allMenMen * allMen;
