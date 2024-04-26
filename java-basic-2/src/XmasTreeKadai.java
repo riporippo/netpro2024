@@ -11,6 +11,10 @@ public class XmasTreeKadai {
                     for(int i=0; i<height*2; i++){
                         System.out.print("*");
                     }
+                    for(int i=2; i<15-height-1; i++){
+                        if(i%3==(height%3)) System.out.print("+");
+                        else System.out.print(" ");
+                    }
                 }
                 else{
                     System.out.print(" ");
