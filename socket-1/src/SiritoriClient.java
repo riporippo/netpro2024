@@ -12,6 +12,7 @@ public class SiritoriClient {
 
         System.out.println("しりとりをしましょう！\n日本語かつひらがなで文字列を送信してね！");
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.flush();
         //Message型オブジェクトの設定
         System.out.println("ひらがなの文字列を入力してください(例:おせち)");
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +30,6 @@ public class SiritoriClient {
         oos.flush();
 
         ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
         Message response = (Message) ois.readObject();
 
         String message3 = response.getMessage();

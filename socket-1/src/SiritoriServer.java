@@ -20,6 +20,7 @@ public class SiritoriServer {
             System.out.println(username +  "からのしりとりメール: " + getSiritori);
 
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.flush();
             Siritori response = new Siritori();
             Message responseMessage = new Message();
             responseMessage.setMessage(response.returnString(getSiritori));
