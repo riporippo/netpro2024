@@ -26,7 +26,7 @@ public class Client {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             // 4. サーバーにデータを送信
-            writer.println("Hello, server!");
+            writer.println("あいうえお");
 
             // 5. サーバーからの応答を受信して表示
             String response = reader.readLine();

@@ -51,4 +51,10 @@ public class Siritori implements Serializable{
             return hashmap.get(lastLetter)+"......ってあ、んがついちゃった...貴方の勝ちです！";
         }
     }
+    public static void main(String args[]){
+        Siritori siritori = new Siritori();
+        for (String a: siritori.hashmap.values()){
+            System.out.println(a);
+        }
+    }
 }

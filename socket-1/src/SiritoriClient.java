@@ -12,14 +12,16 @@ public class SiritoriClient {
 
         System.out.println("しりとりをしましょう！\n日本語かつひらがなで文字列を送信してね！");
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        oos.flush();
+
         //Message型オブジェクトの設定
         System.out.println("ひらがなの文字列を入力してください(例:おせち)");
         Scanner scanner = new Scanner(System.in);
         //しりとり本文
         String message = scanner.next();
+        //String message1 = new String(message.getBytes("UTF-8"),"UTF-8");
         System.out.println("ユーザーネームを入力してください: ");
         String username = scanner.next();
+        //String username1 = new String(username.getBytes("UTF-8"),"UTF-8");
         scanner.close();
 
         Message message2 = new Message();
@@ -34,6 +36,8 @@ public class SiritoriClient {
 
         String message3 = response.getMessage();
         String username2 = response.getUserName();
+        //String utfMessage = new String(message3.getBytes("UTF-8"),"UTF-8");
+        //String utfUserName = new String(username2.getBytes("UTF-8"),"UTF-8");
         System.out.println(username2 +": "+message3);
 
         ois.close();

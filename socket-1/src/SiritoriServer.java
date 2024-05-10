@@ -14,16 +14,18 @@ public class SiritoriServer {
             
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message getMessage = (Message) ois.readObject();
-
+            System.out.println(System.getProperty("file.encoding"));
             String getSiritori = getMessage.getMessage();
             String username = getMessage.getUserName();
-            System.out.println(username +  "からのしりとりメール: " + getSiritori);
+            String utfSiritori = new String(getSiritori.getBytes("UTF-8"),"UTF-8");
+            String utfUsername = new String(username.getBytes("UTF-8"),"UTF-8");
+            System.out.println(utfUsername +  "からのしりとりメール: " + utfSiritori);
 
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.flush();
             Siritori response = new Siritori();
             Message responseMessage = new Message();
-            responseMessage.setMessage(response.returnString(getSiritori));
+            responseMessage.setMessage(response.returnString(utfSiritori));
             responseMessage.setUserName("サーバー");
 
             oos.writeObject(responseMessage);
