@@ -4,40 +4,47 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SiritoriServer {
-    public static void main(String args[]) throws ClassNotFoundException{
-        try{
-            //ポート5050固定で通信
+    public static void main(String args[]) throws ClassNotFoundException {
+        try {
             ServerSocket server = new ServerSocket(5050);
-            //クライアントからの接続要求を待つ
             System.out.println("クライアントからの入力を待っています");
-            Socket socket = server.accept();
-            
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            Message getMessage = (Message) ois.readObject();
-            System.out.println(System.getProperty("file.encoding"));
-            String getSiritori = getMessage.getMessage();
-            String username = getMessage.getUserName();
-            String utfSiritori = new String(getSiritori.getBytes("UTF-8"),"UTF-8");
-            String utfUsername = new String(username.getBytes("UTF-8"),"UTF-8");
-            System.out.println(utfUsername +  "からのしりとりメール: " + utfSiritori);
 
-            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.flush();
-            Siritori response = new Siritori();
-            Message responseMessage = new Message();
-            responseMessage.setMessage(response.returnString(utfSiritori));
-            responseMessage.setUserName("サーバー");
+            while (true) { // ループを追加
+                Socket socket = server.accept();
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                Message getMessage = (Message) ois.readObject();
+                String getSiritori = getMessage.getMessage();
+                String username = getMessage.getUserName();
+                System.out.println(username + "からのしりとりメール: " + getSiritori);
 
-            oos.writeObject(responseMessage);
-            oos.flush();
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                Siritori response = new Siritori();
+                Message responseMessage = new Message();
+                responseMessage.setMessage(response.returnString(getSiritori));
+                responseMessage.setUserName("サーバー");
 
-            //close処理
-            ois.close();
-            oos.close();
-            //socket終了
-            socket.close();
-            server.close();
-        }catch(Exception e){
+                oos.writeObject(responseMessage);
+                oos.flush();
+
+                // クライアントからの入力を待つために、ループを継続
+                String isContinue = ois.readUTF();
+                if(isContinue.equals("n")){
+                    oos.writeUTF("じゃあね");
+                    oos.flush();
+                    ois.close();
+                    oos.close();
+                    socket.close();
+                    server.close();
+
+                }else{
+                    oos.writeUTF("もう一戦いきましょ～！");
+                    oos.flush();
+                    ois.close();
+                    oos.close();
+                    socket.close();
+                }
+            }
+        } catch (Exception e) {
             System.err.println("エラー発生。プログラム終了。");
             e.printStackTrace();
         }
