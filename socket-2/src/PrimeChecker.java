@@ -9,7 +9,9 @@ public class PrimeChecker implements Serializable,ITask{
         checkNum = x;
         resultNum = x;
     }
-
+    public int getExecNumber(){
+        return checkNum;
+    }
     @Override
     public void exec() {
         ArrayList<Integer> PrimeList = new ArrayList<Integer>();

@@ -10,14 +10,17 @@ public class PrimeCheckServer {
             System.out.println("接続待機中");
             Socket clientSocket = serverSocket.accept();
             System.out.println("クライアントと接続しました。");
-
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-            PrimeChecker auau = (PrimeChecker) in.readObject();
-            auau.exec();
-
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-            out.writeObject(auau);
-            out.flush();
+            while(true){
+                PrimeChecker auau = (PrimeChecker) in.readObject();
+                if(auau.getExecNumber()==1){
+                    break;
+                }
+                auau.exec();
+                out.writeObject(auau);
+                out.flush();
+            }
             //通信終了処理
             out.close();
             clientSocket.close();
