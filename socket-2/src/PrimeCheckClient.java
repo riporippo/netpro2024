@@ -14,7 +14,7 @@ public class PrimeCheckClient {
                 PrimeChecker a = new PrimeChecker();
                 System.out.println("任意の自然数を入力してください");
                 int num = scan.nextInt();
-                if(num==1){
+                if(num<=1){
                     break;
                 }
                 a.setExecNumber(num);

@@ -14,7 +14,7 @@ public class PrimeCheckServer {
             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
             while(true){
                 PrimeChecker auau = (PrimeChecker) in.readObject();
-                if(auau.getExecNumber()==1){
+                if(auau.getExecNumber()<=1){
                     break;
                 }
                 auau.exec();
