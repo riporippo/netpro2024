@@ -1,24 +1,33 @@
 package kadai;
-import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 public class CountAZTenRunnable implements Runnable {//インタフェース
     private char key;
-    public static PrintWriter out;
+    static public BufferedWriter bw;
     public static void main(String[] args){
-        Thread[] threads = new Thread[26];//Thread配列
-        out = new PrintWriter("6_C_Result.txt");
-        for(int i=0; i<threads.length; i++){
-            char alfabet = (char)(i+97);//charを対応する作る
-            threads[i] = new Thread(new CountAZTenRunnable(alfabet));//コンストラクタ内でsetChar()を呼び出し保存
-        }
-        for(Thread thread : threads){
-            thread.start();
-        }
-        for(Thread thread : threads){
-            try{
-                thread.join();
-            }catch(InterruptedException e){
-                e.printStackTrace();
+        try{
+            File file = new File("6_C_Result.txt"); 
+            bw = new BufferedWriter(new FileWriter(file)); 
+            Thread[] threads = new Thread[26];//Thread配列
+            for(int i=0; i<threads.length; i++){
+                char alfabet = (char)(i+97);//charを対応する作る
+                threads[i] = new Thread(new CountAZTenRunnable(alfabet));//コンストラクタ内でsetChar()を呼び出し保存
             }
+            for(Thread thread : threads){
+                thread.start();
+            }
+            for(Thread thread : threads){
+                try{
+                    thread.join();
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+            bw.close();
+        }catch(IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -28,7 +37,12 @@ public class CountAZTenRunnable implements Runnable {//インタフェース
         try {
             for(int i = 0; i < 10; i++) {
                 System.out.println(this.getChar()+ i);//getChar()でStringに変換したcharを呼び出し
-
+                try {
+                    bw.write(this.getChar()+i);
+                    bw.newLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 // スレッドを 1000 ミリ秒間一時停止します。
                 Thread.sleep(1000);  // ミリ秒単位のスリープ時間
             }
