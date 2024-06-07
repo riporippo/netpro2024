@@ -102,8 +102,8 @@ class GUIAnimatinFaceLook {// 顔のオブジェクト
 		}else{
 			int xMiddle = xStart + h/2;
 			int yMiddle = yStart + (3 * w /4);
-			g.drawLine(xMiddle - mouseSize / 2, yMiddle, xMiddle, yMiddle - mouseSize/5);
-			g.drawLine(xMiddle,yMiddle - mouseSize/5,xMiddle + mouseSize/2,  yMiddle);
+			g.drawLine(xMiddle - mouseSize / 2, yMiddle, xMiddle, yMiddle + mouseSize/5);
+			g.drawLine(xMiddle,yMiddle + mouseSize/5,xMiddle + mouseSize/2,  yMiddle);
 		}
 	}
 	public void makeOko(Graphics g, int size){
