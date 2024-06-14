@@ -7,13 +7,13 @@ import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class FacesAWTYoshimuratakumi {
+public class FacesAWT9 {
 
 	public static void main(String[] args){
-		new FacesAWTYoshimuratakumi();
+		new FacesAWT9();
 	}
 
-    FacesAWTYoshimuratakumi(){
+    FacesAWT9(){
 		FaceFrame f = new FaceFrame();
 		f.setSize(800,800);
 		f.addWindowListener(new WindowAdapter(){
